@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+<bean id="drds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+<property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
+<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+<property name="username" value="scott"/>
+<property name="password" value="scott"></property>
+</bean>
+
+	<bean id="patientDao" class="com.nt.dao.OraclePatientDAOImpl">
+		<constructor-arg ref="drds" />
+	</bean>
+	<bean id="PatientServiceImpl" class="com.nt.service.PatientServiceImpl">
+		<constructor-arg ref="patientDao" />
+	</bean>
+	<bean id="controller" class="com.nt.controller.PatientController">
+		<constructor-arg ref="PatientServiceImpl"/>
+	</bean>
+	
+	
+</beans>
